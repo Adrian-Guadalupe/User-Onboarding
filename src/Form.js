@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const UserForm = ({ values, errors, touched, status }) => {
-   const [users, setUsers] = useState();
+   const [users, setUsers] = useState([]);
 
    useEffect(() => {
       console.log('status has changed', status);
