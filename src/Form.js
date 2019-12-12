@@ -50,7 +50,7 @@ const UserForm = ({ values, errors, touched, status }) => {
                   <li>{user.password}</li>
                   <li>{user.tos}</li>
                </ul>
-            )
+            );
          })}
       </div>
    );
@@ -76,15 +76,16 @@ const FormikUserForm = withFormik({
          .required('A password is required')
    }),
 
-   handleSubmit(values, { setStatus }) {
+   handleSubmit(values, { setStatus, resetForm }) {
       console.log('submitting', values);
       axios
-      .post('https://regress.in/api/users', values)
+      .post('https://reqres.in/api/users', values)
       .then(res => {
         console.log('success', res);
         setStatus(res.data);
+        resetForm();
       })
-      .catch(err => console.log(err.response));
+      .catch(err => console.log('NOOOOO!!!!', err.response));
    },
 })(UserForm);
 
