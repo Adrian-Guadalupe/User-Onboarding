@@ -31,11 +31,12 @@ const UserForm = ({ values, errors, touched, status }) => {
 
             <label className='checkbox-container'>
                Terms of Service
-               <Field
-                  type='checkbox'
-                  name='tos'
-                  checked={values.tos}
-               />
+               
+               <Field type='checkbox' name='tos' checked={values.tos} />
+               {touched.tos && errors.tos && (
+                  <p className='errors'>{errors.tos}</p>
+               )}
+
                <span className='checkmark' />
             </label>
 
@@ -67,13 +68,20 @@ const FormikUserForm = withFormik({
    },
 
    validationSchema: Yup.object().shape({
-      name: Yup.string()
+      name: Yup
+         .string()
          .required('Your name is required'),
-      email: Yup.string()
+      email: Yup
+         .string()
          .required('Email input required'),
-      password: Yup.string()
+      password: Yup
+         .string()
          .min(6, 'Password must be 6 characters or longer')
-         .required('A password is required')
+         .required('A password is required'),
+      tos: Yup
+         .bool()
+         .oneOf([true], 'You must accept the terms of service to continue')
+         .required()
    }),
 
    handleSubmit(values, { setStatus, resetForm }) {
